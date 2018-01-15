@@ -19,6 +19,8 @@ export default {
 </script>
 
 <style lang="stylus">
+@import './static/css/reset.styl'
+
 	#app
 		color lightgreen
 

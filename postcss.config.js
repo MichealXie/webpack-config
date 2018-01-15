@@ -3,7 +3,8 @@ module.exports = {
 		// 在原生 css引入sass/stylus 等的 @import, 然而我全程 stylus....
 		// 'postcss-import': {},
 		"autoprefixer": { browsers: ['last 2 versions'] },
-		'postcss-cssnext': {},
+		// cssnext 包含了autoprefixer, 会有冲突
+		// 'postcss-cssnext': {},
 		// 压缩 css
 		'cssnano': {},
 		// "postcss-px-to-viewport": {
