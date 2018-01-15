@@ -27,13 +27,13 @@ module.exports = {
 	},
 	output: {
 		path: path.join(__dirname, 'dist'),
+		// chunkhash 在 dev 会出错, prodution 的时候改回来就好
 		filename: '[name].[hash].js'
 	},
 	resolve: {
 	// 文件扩展名，写明以后就不需要每个文件写后缀
 		extensions: ['.js', '.vue', '.json'],
 		alias: {
-			'vue$': 'vue/dist/vue.esm.js',
 			'@': resolve('src'),
 		}
 	},
@@ -45,14 +45,17 @@ module.exports = {
 				loader: 'vue-loader',
 				options: {
 					loaders: {
-						stylus: 'vue-style-loader!css-loader!stylus-loader'
-					},
-					 extractCSS: true
+						stylus: ExtractTextPlugin.extract({
+							use: ['css-loader', 'stylus-loader'],
+							fallback: 'vue-style-loader'
+						})
+					}
 				}
 			},
 			{
 				test: /\.js$/,
-				use: 'babel-loader'
+				use: 'babel-loader',
+				include: [resolve('src')]
 			},
 			{
 				test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
