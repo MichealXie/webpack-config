@@ -5,9 +5,9 @@
 	+ vue 内使用 stylus
 	+ 代码分离
 	+ dev 热加载
+	+ postcss   autoprefixer/ cssNext/ px2viewport/ postcss-import/ cssnano
 
 
 # what's next
-	+ postcss
 	+ prodction 啥的...
 	+ tree-shaking

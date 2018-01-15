@@ -1,9 +1,9 @@
-var webpack = require('webpack');
-var path = require('path');
-var HtmlWebpackPlugin = require('html-webpack-plugin')
-var CleanWebpackPlugin = require('clean-webpack-plugin')
-var ExtractTextPlugin = require('extract-text-webpack-plugin')
-var OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin')
+let webpack = require('webpack');
+let path = require('path');
+let HtmlWebpackPlugin = require('html-webpack-plugin')
+let CleanWebpackPlugin = require('clean-webpack-plugin')
+let ExtractTextPlugin = require('extract-text-webpack-plugin')
+let OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin')
 
 function resolve(dir) {
 	return path.join(__dirname, dir)
@@ -67,11 +67,19 @@ module.exports = {
 			{
 				test: /\.css$/,
 				loader: ExtractTextPlugin.extract({
+					// ExtractTextPlugin 这个插件要求把 style-loader 放在 fallback...
 					fallback: 'style-loader',
-					use: [{
-						// 这边其实还可以使用 postcss 先处理下 CSS 代码
-						loader: 'css-loader'
-					}]
+					use: [
+						{loader: 'css-loader'},
+						//https://github.com/postcss/postcss-loader
+						{
+							loader: 'postcss-loader',
+							options: {
+								// 只要路径就可以用, 真方便
+								config: resolve('postcss.config.js')
+							}
+						},
+					]
 				})
 			},
 		]
