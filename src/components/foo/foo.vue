@@ -1,6 +1,8 @@
 <template>
 	<div class="foo">
 		{{bojack}}
+		{{bojack}}
+		{{bojack}}
 	</div>
 </template>
 

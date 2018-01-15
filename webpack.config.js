@@ -27,7 +27,7 @@ module.exports = {
 	},
 	output: {
 		path: path.join(__dirname, 'dist'),
-		filename: '[name].[chunkhash].js'
+		filename: '[name].[hash].js'
 	},
 	resolve: {
 	// 文件扩展名，写明以后就不需要每个文件写后缀
