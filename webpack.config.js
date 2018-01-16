@@ -1,9 +1,10 @@
-let webpack = require('webpack');
-let path = require('path');
-let HtmlWebpackPlugin = require('html-webpack-plugin')
-let CleanWebpackPlugin = require('clean-webpack-plugin')
-let ExtractTextPlugin = require('extract-text-webpack-plugin')
-let OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin')
+const webpack = require('webpack');
+const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin')
+const CleanWebpackPlugin = require('clean-webpack-plugin')
+const ExtractTextPlugin = require('extract-text-webpack-plugin')
+const OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin')
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 
 function resolve(dir) {
 	return path.join(__dirname, dir)
@@ -35,6 +36,8 @@ module.exports = {
 		extensions: ['.js', '.vue', '.json'],
 		alias: {
 			'@': resolve('src'),
+			// 不加会报: You are using the runtime-only build of Vue where the template compiler is not available
+			'vue$': 'vue/dist/vue.esm.js',
 		}
 	},
 	devtool: 'source-map',
@@ -112,10 +115,14 @@ module.exports = {
 			}
 		}),
 		// 压缩 JS 代码
-		new webpack.optimize.UglifyJsPlugin({
-			compress: {
-				warnings: false
-			}
-		})
+		new UglifyJsPlugin({
+			uglifyOptions: {
+				compress: {
+					warnings: false
+				}
+			},
+			sourceMap: true,
+			parallel: true
+		}),
 	]
 };
