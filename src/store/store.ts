@@ -12,5 +12,5 @@ export default new Vuex.Store({
 	state:{
 		bojack: 'bojack horseman'
 	},
-	plugins: [createLogger()]
+	// plugins: [createLogger()]
 })

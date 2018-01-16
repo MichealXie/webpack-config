@@ -19,7 +19,7 @@ const VENOR = [
 
 module.exports = {
 	entry: {
-		bundle: './src/main.js',
+		bundle: './src/main.ts',
 		vendor: VENOR
 	},
 	// 如果想修改 webpack-dev-server 配置，在这个对象里面修改
@@ -33,7 +33,7 @@ module.exports = {
 	},
 	resolve: {
 	// 文件扩展名，写明以后就不需要每个文件写后缀
-		extensions: ['.js', '.vue', '.json'],
+		extensions: ['.js', '.ts', '.vue', '.json'],
 		alias: {
 			'@': resolve('src'),
 			// 不加会报: You are using the runtime-only build of Vue where the template compiler is not available
@@ -53,6 +53,14 @@ module.exports = {
 							fallback: 'vue-style-loader'
 						})
 					}
+				}
+			},
+			{
+				test: /\.tsx?$/,
+				loader: 'ts-loader',
+				exclude: /node_modules/,
+				options: {
+					appendTsSuffixTo: [/\.vue$/]
 				}
 			},
 			{

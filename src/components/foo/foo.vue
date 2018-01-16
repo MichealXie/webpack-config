@@ -1,19 +1,25 @@
 <template>
 	<div class="foo">
-		{{bojack}}
-		{{bojack}}
-		{{bojack}}
+		<button @click="showName()">who am I?</button>
 	</div>
 </template>
 
-<script>
-export default {
+<script lang='ts'>
+import Vue from 'vue'
+
+
+export default Vue.extend( {
 	computed: {
-		bojack(){
-			return this.$store.state.bojack
+		bojack():string {
+			return this.$store.state.bojack 
+		}
+	},
+	methods: {
+		showName(): void{
+			alert(this.bojack)
 		}
 	}
-}
+})
 </script>
 
 <style lang="stylus">

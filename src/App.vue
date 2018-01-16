@@ -5,8 +5,10 @@
 	</div>
 </template>
 
-<script>
-export default {
+<script lang='ts'>
+import Vue from 'vue'
+
+export default Vue.extend({
 	components: {
 		
 	},
@@ -15,7 +17,7 @@ export default {
 			msg: 'micheal 的第一个自己配的 webpack + vue'
 		}
 	}
-}
+})
 </script>
 
 <style lang="stylus">
