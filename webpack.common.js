@@ -82,10 +82,7 @@ module.exports = {
 		new HtmlWebpackPlugin({
 			template: 'index.html',
 		}),
-		// 生成全局变量
-		new webpack.DefinePlugin({
-			"process.env.NODE_ENV": JSON.stringify("process.env.NODE_ENV")
-		}),
+
 		new ExtractTextPlugin("css/[name].[contenthash].css"),
 		// HMR 开启 css 代码分离后想要 CSS 热更新的代价
 		new webpack.HotModuleReplacementPlugin(),

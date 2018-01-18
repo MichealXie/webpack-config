@@ -5,8 +5,9 @@ module.exports = {
 		"autoprefixer": { browsers: ['last 2 versions'] },
 		// cssnext 包含了autoprefixer, 会有冲突
 		// 'postcss-cssnext': {},
-		// 压缩 css
-		'cssnano': {},
+		// 压缩 css, 然而 plugin 已经有了...
+		// 'cssnano': {},
+		// 移动端适配神器
 		// "postcss-px-to-viewport": {
 		// 	viewportWidth: 375,
 		// 	viewportHeight: 667,

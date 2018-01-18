@@ -1,6 +1,7 @@
 const common = require('./webpack.common.js')
 const merge = require('webpack-merge')
 const path = require('path');
+const webpack = require('webpack');
 
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
@@ -33,6 +34,10 @@ module.exports = merge(common, {
 		},]
 	},
 	plugins: [
+		// 设置为prod 模式后打包文件变小了..., 好神奇
+		new webpack.DefinePlugin({
+			"process.env.NODE_ENV": JSON.stringify("production")
+		}),
 		// 分离 CSS 代码
 		new ExtractTextPlugin("css/[name].[contenthash].css"),
 		// 压缩提取出的 CSS，并解决ExtractTextPlugin分离出的 JS 重复问题
