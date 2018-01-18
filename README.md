@@ -8,10 +8,10 @@
 	+ postcss   autoprefixer/ cssNext/ px2viewport/ postcss-import/ cssnano
 	+ tree-shaking   => "js": uglify, "css": webpack-css-treeshaking-plugin
 	+ ts
-
+	+ 实现 prod 与 dev 模式分离, 提高开发体验
 
 # what's next
-	+ prodction 啥的...
+	+ 能否再提高速度?
 
 
 # 待修复

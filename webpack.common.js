@@ -3,39 +3,19 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const CleanWebpackPlugin = require('clean-webpack-plugin')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
-const OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin')
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 
-const extractStyles = (loaders) => {
-	if (process.env.NODE_ENV === 'production') {
-		return ExtractTextPlugin.extract({
-			fallback: 'style-loader',
-			use: loaders,
-		});
-	}
-	return ['style-loader', ...loaders];
-}
+
 
 
 function resolve(dir) {
 	return path.join(__dirname, dir)
 }
 
-const VENOR = [
-    "axios",
-    "vue",
-    "vue-router",
-    "vuex"
-]
 
 module.exports = {
 	entry: {
 		bundle: './src/main.ts',
-		vendor: VENOR
-	},
-	// 如果想修改 webpack-dev-server 配置，在这个对象里面修改
-	devServer: {
-		port: 8081
+		vendor: ["axios", "vue", "vue-router", "vuex"]
 	},
 	output: {
 		path: path.join(__dirname, 'dist'),
@@ -43,7 +23,7 @@ module.exports = {
 		filename: '[name].[hash].js'
 	},
 	resolve: {
-	// 文件扩展名，写明以后就不需要每个文件写后缀
+		// 文件扩展名，写明以后就不需要每个文件写后缀
 		extensions: ['.js', '.ts', '.vue', '.json'],
 		alias: {
 			'@': resolve('src'),
@@ -51,7 +31,6 @@ module.exports = {
 			'vue$': 'vue/dist/vue.esm.js',
 		}
 	},
-	devtool: 'source-map',
 	module: {
 		rules: [
 			{
@@ -74,6 +53,7 @@ module.exports = {
 					appendTsSuffixTo: [/\.vue$/]
 				}
 			},
+			// TS 自带 bable
 			// {
 			// 	test: /\.js$/,
 			// 	use: 'babel-loader',
@@ -89,24 +69,6 @@ module.exports = {
 					}
 				}]
 			},
-			{
-				test: /\.css$/,
-				loader: ExtractTextPlugin.extract({
-					// ExtractTextPlugin 这个插件要求把 style-loader 放在 fallback...
-					fallback: 'style-loader',
-					use: [
-						{loader: 'css-loader'},
-						//https://github.com/postcss/postcss-loader
-						{
-							loader: 'postcss-loader',
-							options: {
-								// 只要路径就可以用, 真方便
-								config: resolve('postcss.config.js')
-							}
-						},
-					]
-				})
-			},
 		]
 	},
 	plugins: [
@@ -119,29 +81,14 @@ module.exports = {
 			dry: false
 		}),
 		new HtmlWebpackPlugin({
-			template: 'index.html'
+			template: 'index.html',
 		}),
 		// 生成全局变量
 		new webpack.DefinePlugin({
 			"process.env.NODE_ENV": JSON.stringify("process.env.NODE_ENV")
 		}),
-		// 分离 CSS 代码
 		new ExtractTextPlugin("css/[name].[contenthash].css"),
-		// 压缩提取出的 CSS，并解决ExtractTextPlugin分离出的 JS 重复问题
-		new OptimizeCSSPlugin({
-			cssProcessorOptions: {
-				safe: true
-			}
-		}),
-		// 压缩 JS 代码
-		new UglifyJsPlugin({
-			uglifyOptions: {
-				compress: {
-					warnings: false
-				}
-			},
-			sourceMap: true,
-			parallel: true
-		}),
+		// HMR 开启 css 代码分离后想要 CSS 热更新的代价
+		new webpack.HotModuleReplacementPlugin(),
 	]
 };
