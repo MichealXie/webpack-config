@@ -4,11 +4,11 @@
 ```
 // 1  下载库
 git clone git@github.com:MichealXie/webpack-config.git
-// 2 进入文件目录
+// 2  进入文件目录
 cd webpack-config
-// 3 安装依赖
+// 3  安装依赖
 npm install
-// 4 开始吧 (≧∇≦)/
+// 4  开始吧 (≧∇≦)/
 npm run dev 
 ```
 ## 已完成:
