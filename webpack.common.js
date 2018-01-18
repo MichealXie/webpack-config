@@ -6,7 +6,6 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin')
 
 
 
-
 function resolve(dir) {
 	return path.join(__dirname, dir)
 }

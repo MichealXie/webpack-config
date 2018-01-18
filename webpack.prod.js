@@ -1,9 +1,15 @@
 const common = require('./webpack.common.js')
 const merge = require('webpack-merge')
+const path = require('path');
 
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin')
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
+
+function resolve(dir) {
+	return path.join(__dirname, dir)
+}
 
 module.exports = merge(common, {
 	module: {
@@ -45,6 +51,7 @@ module.exports = merge(common, {
 			sourceMap: true,
 			parallel: true
 		}),
-		
+		//分析代码
+		new BundleAnalyzerPlugin(),
 	]
 });
